@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% import 'macros.html' as macros %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block title%}
     {{ super() }}
@@ -15,9 +14,6 @@
 {% else %}
     <a href="{{ url_for('index') }}">Go index</a>
 {% endif %}
-<div class="container">
-    {{ wtf.quick_form(form) }}
-</div>
 <ul>
     {% for task in tasks %}
         {{ macros.render_task(task) }}

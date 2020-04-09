@@ -1,8 +1,7 @@
-from flask import (request, make_response, redirect, url_for,
-                   render_template, session, flash)
+from flask import (request, make_response, redirect,
+                   render_template, session)
 import unittest
 from app import create_app
-from app.forms import LoginForm
 
 app = create_app()
 
@@ -23,22 +22,16 @@ def index():
     return response
 
 
-@app.route('/hello_world', methods=['GET', 'POST'])
+@app.route('/hello_world', methods=['GET'])
 def hello_world():
-    form = LoginForm()
     user_address = session.get('user_address')
     username = session.get('username')
     context = {
         'user_address': user_address,
         'tasks': tasks,
-        'form': form,
         'username': username
     }
-    if form.validate_on_submit():
-        username = form.username.data
-        session['username'] = username
-        flash('Username registered with success.')
-        return redirect(url_for('index'))
+
     return render_template('hello.html', **context)
 
 
