@@ -2,10 +2,10 @@ from flask import (request, make_response, redirect,
                    render_template, session)
 import unittest
 from app import create_app
+from app.firestore_service import get_tasks
+from flask_login import login_required, current_user
 
 app = create_app()
-
-tasks = ['Buy coffe', 'Do homework', 'Go shopping']
 
 
 @app.cli.command()
@@ -23,12 +23,13 @@ def index():
 
 
 @app.route('/hello_world', methods=['GET'])
+@login_required
 def hello_world():
     user_address = session.get('user_address')
-    username = session.get('username')
+    username = current_user.id
     context = {
         'user_address': user_address,
-        'tasks': tasks,
+        'tasks': get_tasks(username),
         'username': username
     }
 
