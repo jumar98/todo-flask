@@ -1,7 +1,7 @@
 from . import auth
 from app.forms import LoginForm, SignupForm
 from flask import render_template, redirect, flash, url_for
-from app.firestore_service import get_user, insert_user
+from app.firestore_service import get_user, create_user
 from app.models import UserModel, User
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash
@@ -54,7 +54,7 @@ def signup():
         if not user_doc.to_dict():
             password_hash = generate_password_hash(password)
             user_data = User(username, password_hash)
-            insert_user(user_data)
+            create_user(user_data)
             user = UserModel(user_data)
             login_user(user)
             flash('User registered with success')

@@ -13,3 +13,16 @@ class SignupForm(LoginForm):
 
     def __init__(self):
         super(LoginForm, self).__init__()
+
+
+class TaskForm(FlaskForm):
+    description = StringField('Description', validators=[DataRequired()])
+    submit = SubmitField('Add')
+
+
+class DeleteTaskForm(FlaskForm):
+    submit = SubmitField('Delete')
+
+
+class UpdateTaskForm(FlaskForm):
+    submit = SubmitField('Edit')
